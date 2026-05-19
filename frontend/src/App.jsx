@@ -8,9 +8,23 @@ function App(){
   
   const [message,setMessage]=useState("");
   useEffect(()=>{
-    fetch('http://127.0.0.1:5000/')
+    fetch('http://127.0.0.1:5000/chat',{
+      method:"POST",
+      headers:{
+        "Content-type":"application/json"
+      },
+      body:JSON.stringify({
+        "conversation": [
+          {
+            "role": "user",
+            "content": "I have fever"
+          }
+        ]
+      })
+    })
     .then(res=>res.json())
-    .then(data=>setMessage(data.message))
+    .then(data=>setMessage(data.reply))
+    .catch(err=>console.log(err))
   },[]);
 
   return (
